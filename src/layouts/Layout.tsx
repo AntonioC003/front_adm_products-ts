@@ -10,7 +10,7 @@ export default function Layout() {
           </h1>
         </div>
       </header>
-      <main className="mt-10 mx-auto max-w-6xl py-10 bg-white shadow ">
+      <main className="mt-10 mx-auto max-w-6xl py-10 px-5 bg-white shadow ">
         <Outlet/>
 
       </main>
