@@ -1,6 +1,7 @@
-import { Form, Link, useActionData } from "react-router-dom";
+import { Form, Link, useActionData, type ActionFunctionArgs } from "react-router-dom";
+import ErrorMessage from "../components/ErrorMessage";
 
-export async function action({request}) {
+export async function action({request}: ActionFunctionArgs) {
   // Recuperando los datos del usuario sin useState
   const data = Object.fromEntries( await request.formData())
 
@@ -20,7 +21,7 @@ export async function action({request}) {
 export default function NewProduct() {
 
   // Captura de nuevo las acciones con useActionData()
-  const error = useActionData()
+  const error = useActionData() as string
 
   return (
     <>
@@ -31,6 +32,7 @@ export default function NewProduct() {
           className="rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500 "
           >Volver a Productos</Link>
       </div>
+      {error && <ErrorMessage>{error}</ErrorMessage>  }
       <Form
         method="POST"
         className="mt-10"      
