@@ -9,11 +9,11 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout/>,
-    loader: productsLoader,
     children: [
       {
         index: true, //carga la pagina principal 
-        element: <Products/>
+        element: <Products/>,
+        loader: productsLoader,
       },
       {
         path: 'productos/nuevo',
