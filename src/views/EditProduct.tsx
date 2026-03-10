@@ -1,17 +1,25 @@
-import { Form, Link, useActionData, type ActionFunctionArgs, redirect, type LoaderFunctionArgs } from "react-router-dom";
+import { Form, Link, useActionData, type ActionFunctionArgs, redirect, type LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
-import { addProduct } from "../services/ProductService";
+import { addProduct, getProductById } from "../services/ProductService";
+import type { Product } from "../types";
 
 
 
 export async function loader({params} : LoaderFunctionArgs) {
-
+  
+  if(params.id !== undefined) {
+    const product =  await getProductById(+params.id)
+    if(!product){
+      //throw new Response('', {status: 404, statusText: 'No Encontrado'})
+      return redirect('/')
+    }
+    return product
+  }
 }
 
 export async function action({request}: ActionFunctionArgs) {
   // Recuperando los datos del usuario sin useState
   const data = Object.fromEntries( await request.formData())
-
   let error = ''
   // -Validando campos
   if (Object.values(data).includes('')){
@@ -30,7 +38,7 @@ export default function EditProduct() {
 
   // Captura de nuevo las acciones con useActionData()
   const error = useActionData() as string
-  
+  const product = useLoaderData() as Product
   return (
     <>
       <div className="flex justify-between mx-5">
@@ -56,6 +64,7 @@ export default function EditProduct() {
               className="mt-2 block w-full p-3 bg-gray-50"
               placeholder="Nombre del Producto"
               name="name"
+              defaultValue={product.name}
             />
           </div>
           <div className="mb-4">
@@ -69,6 +78,7 @@ export default function EditProduct() {
               className="mt-2 block w-full p-3 bg-gray-50"
               placeholder="Precio Producto. ej. 200, 300"
               name="price"
+              defaultValue={product.price}
             />
           </div>
           <input
