@@ -30,7 +30,7 @@ export async function action({request, params}: ActionFunctionArgs) {
     return error
   }
   if(params.id !== undefined) {
-    await updateProduct(data, params.id)
+    await updateProduct(data, +params.id)
     return redirect('/')
   }
 }
