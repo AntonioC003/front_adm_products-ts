@@ -1,6 +1,6 @@
 import { Form, Link, useActionData, type ActionFunctionArgs, redirect, type LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
-import { addProduct, getProductById, updateProduct } from "../services/ProductService";
+import { getProductById, updateProduct } from "../services/ProductService";
 import type { Product } from "../types";
 
 
