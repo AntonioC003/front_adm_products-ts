@@ -33,7 +33,6 @@ export async function getProducts() {
     const url = `${import.meta.env.VITE_API_URL}/api/products`
     const { data } = await axios.get(url)
     const result = safeParse(ProductsSchema, data.data)
-    
     if(result.success){
       return result.output
     } else {
